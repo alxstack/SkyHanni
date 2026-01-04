@@ -17,6 +17,7 @@ import at.hannibal2.skyhanni.events.minecraft.SkyHanniRenderWorldEvent
 import at.hannibal2.skyhanni.events.skyblock.GraphAreaChangeEvent
 import at.hannibal2.skyhanni.mixins.hooks.RenderLivingEntityHelper
 import at.hannibal2.skyhanni.skyhannimodule.SkyHanniModule
+import at.hannibal2.skyhanni.utils.ChatUtils
 import at.hannibal2.skyhanni.utils.ColorUtils.addAlpha
 import at.hannibal2.skyhanni.utils.EntityUtils
 import at.hannibal2.skyhanni.utils.HypixelCommands
@@ -137,6 +138,7 @@ object TrevorFeatures {
             if (config.mobDiedMessage) {
                 lastTitle?.stop()
                 lastTitle = TitleManager.sendTitle("§2Mob Died")
+
                 SoundUtils.playBeepSound()
             }
             trapperReady = true
@@ -152,7 +154,7 @@ object TrevorFeatures {
         }
 
         trapperPattern.matchMatcher(formattedMessage) {
-            timeUntilNextReady = if (Perk.PELT_POCALYPSE.isActive) 16 else 21
+            timeUntilNextReady = 16 else 21
             currentStatus = TrapperStatus.ACTIVE
             currentLabel = "§cActive Quest"
             trapperReady = false
@@ -245,7 +247,10 @@ object TrevorFeatures {
                 found = true
             }
         }
-        if (!found) TrevorSolver.mobLocation = TrapperMobArea.NONE
+        if (!found) {
+            TrevorSolver.mobLocation = TrapperMobArea.NONE
+            ChatUtils.chat("Resetting Trapper")
+        }
         if (!active) {
             trapperReady = true
         } else {

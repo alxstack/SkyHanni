@@ -73,7 +73,8 @@ object TrevorSolver {
                 if (foundID == entity.entityId) {
                     val isOasisMob = currentMob == TrevorMob.RABBIT || currentMob == TrevorMob.SHEEP
                     if (isOasisMob && mobLocation == TrapperMobArea.OASIS && !isTrevor) return
-                    val canSee = entity.canBeSeen(currentMob.renderDistance) && !entity.isInvisible && !hasBlindness
+                    println("aaaaaaaaa")
+                    val canSee = true
                     if (canSee) {
                         if (mobLocation != TrapperMobArea.FOUND) {
                             TrevorFeatures.lastTitle?.stop()
